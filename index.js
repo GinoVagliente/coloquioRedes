@@ -1,9 +1,10 @@
 import connectDB from './database/db.js';
-import dotenv from 'dotenv';
 import express from 'express';
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import userRoutes from './routes/userRoutes.js';
-import tipoMultasRoutes from './routes/tipoMultaRoutes.js';
+import crearJWT from './crearJWT.js'; // Importa las rutas de autenticación
+import userRoutes from './routes/userRoutes.js';  // Otras rutas protegidas
+import tipoMultasRoutes from './routes/tipoMultaRoutes.js'; 
 import multasRoutes from './routes/multasRoutes.js';
 
 dotenv.config();
@@ -11,9 +12,8 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const PORT1 = process.env.PORT1 || 4000;
-
 connectDB();
+const PORT1 = process.env.PORT1 || 4000;
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -31,22 +31,16 @@ const verifyToken = (req, res, next) => {
         if (err) {
             return res.status(401).json({ error: 'Token inválido' });
         }
-        req.user = decoded;
+        req.user = decoded;  // Decodificar el usuario del JWT
         next();
     });
 };
 
-const generateToken = (user) => {
-    return jwt.sign(user, JWT_SECRET, { expiresIn: '1h' });
-};
-
-const user = { id: 1, username: 'test' };
-const token = generateToken(user);
-console.log(`Token generado: ${token}`);
-
-app.use('/user', verifyToken, userRoutes);
-app.use('/tipoMulta', verifyToken, tipoMultasRoutes);
-app.use('/multa', verifyToken, multasRoutes);
+// Rutas
+app.use('/auth', crearJWT);  // Ruta de login
+app.use('/user', verifyToken, userRoutes);  // Ruta protegida
+app.use('/tipoMulta', verifyToken, tipoMultasRoutes);  // Ruta protegida
+app.use('/multa', verifyToken, multasRoutes);  // Ruta protegida
 
 app.listen(PORT1, () => {
     console.log(`Servidor corriendo en el puerto ${PORT1}`);
