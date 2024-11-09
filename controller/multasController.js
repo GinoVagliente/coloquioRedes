@@ -69,7 +69,7 @@ export const getAnalisisMulta = async (req, res) => {
     const { dni } = req.body;
 
     try {
-        const response = await axios.get(`${url}/multa/get/${dni}`, {
+        const response = await axios.get(`${url}multa/get/${dni}`, {
             headers: {
                 Authorization: `Bearer ${req.headers.authorization.split(' ')[1]}`
             }
