@@ -1,4 +1,4 @@
-import TipoMultasModel from '../models/TipoMultasModel.js'
+import TipoMultasModel from '../models/tipoMultasModel.js'
 
 
 export const insertTipoMulta = async (req, res) => {
