@@ -67,7 +67,7 @@ export const getMultasByDni = async (req, res) => {
 
 export const getAnalisisMulta = async (req, res) => {
     const { dni } = req.body;
-
+    console.log('URL de la API:', url);
     try {
         const response = await axios.get(`${url}multa/get/${dni}`, {
             headers: {
