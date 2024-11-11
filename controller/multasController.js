@@ -61,7 +61,7 @@ export const getMultasByDni = async (req, res) => {
         return res.status(200).json(multas);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: 'Error al obtener las multas', error: error.message });
+        return res.status(500).json({ message: 'Usuario no encontrado', error: error.message });
     }
 };
 
