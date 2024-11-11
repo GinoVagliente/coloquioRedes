@@ -74,10 +74,7 @@ export const getAnalisisMulta = async (req, res) => {
                 Authorization: `Bearer ${req.headers.authorization.split(' ')[1]}`
             }
         });
-        
-        if (!response.data || response.data.length === 0) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
-        }
+
         const multas = response.data;
 
         if (multas.length === 0) {
