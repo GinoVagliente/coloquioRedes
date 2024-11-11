@@ -101,7 +101,8 @@ export const getAnalisisMulta = async (req, res) => {
         const puedeRenovar = evaluarRenovacion(altas, medias);
         const razon = puedeRenovar ? '0' : '1';
 
-        const prompt = `Dado que el usuario tiene ${altas} multas altas, ${medias} multas medias y ${bajas} multas bajas, ${razon} Las razones de las multas son: ${razones.join(', ')}. Haz un análisis del patrón de multas y dime qué tendencias tiene el conductor y si puede o no tener carnet de conducir. Si solo tiene multas de alerta baja puede recibirlo, si tiene más de 2 multas de nivel medio NO puede y si tiene 1 o más multas graves NO puede.`;
+        const prompt = `Dado que el usuario tiene ${altas} multas altas, ${medias} multas medias y ${bajas} multas bajas, ${razon} Las razones de las multas son: ${razones.join(', ')}.
+        Haz un análisis del patrón de multas y dime qué tendencias tiene el conductor y si puede o no tener carnet de conducir. Si solo tiene multas de alerta baja puede recibirlo, si tiene más de 2 multas de nivel medio NO puede y si tiene 1 o más multas graves NO puede. En caso contrario SI PUEDE RECIBIR EL CARNET `;
 
         const exp = await generarExplicacion(prompt);
 
